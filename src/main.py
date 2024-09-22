@@ -42,9 +42,11 @@ if __name__ == "__main__":
         # Time data
         time_data = time.localtime()
         # Variable that ensures the server does not start up again during the day
-        ran_today = False
         
-        if exat_functions.time_in_minutes() >= int(config[exat_data.day_index[time_data.tm_wday]]["Start Minute"]) and ran_today == False:
+        if time_data.tm_sec == 0:
+            print(f"Current time in minutes: {exat_functions.time_in_minutes()}")
+        
+        if exat_functions.time_in_minutes() >= int(config[exat_data.day_index[time_data.tm_wday]]["Start Minute"]) and exat_functions.time_in_minutes() < (int(config[exat_data.day_index[time_data.tm_wday]]["Start Minute"]) + int(config[exat_data.day_index[time_data.tm_wday]]["Uptime"])):
             exat_functions.execute_startup(server)
             
             # variables to ensure actions are not repeated
@@ -86,5 +88,4 @@ if __name__ == "__main__":
             while exat_functions.get_server_status(server) != "Offline":
                 pass
             
-            ran_today = True
             # More to come
