@@ -11,7 +11,7 @@ import exat_data
 import exat_class
 
 # Global variables
-parentdir = os.getcwd()
+parentdir = os.path.abspath(os.path.dirname(__file__))
 config = cfgp.ConfigParser()
 server = None
 
